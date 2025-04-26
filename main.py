@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import random
 
 class GUI:
@@ -12,25 +13,31 @@ class GUI:
         random.shuffle(self._current_state)# 1-8 and None for empty space
         self.buttons = []
         # Title Label
-        self.title_label = tk.Label(
+        self.title_label = ttk.Label(
             self.root,
             text="8 Puzzle Game",
             font=("Arial", 24, "bold"),
-            bg="#EAEAEA",
-            pady=0
         )
         self.title_label.pack()
 
         # Frame for the puzzle
-        self.puzzle_frame = tk.Frame(
-            self.root,
-            bg="#EAEAEA"
+        self.puzzle_frame = ttk.Frame(
+            self.root
         )
         self.puzzle_frame.pack(pady=20)
         self.display_state()
+        self.shuffle_button = ttk.Button(self.root,
+                                        command=lambda row=3, col=3: random.shuffle(self._current_state),
+                                        text="Shuffle", )
+        self.shuffle_button.pack(pady=20)
 
-    def current_state(self):
-        return self._current_state
+        self.refresh_timer = 100
+        self.refresh()
+    def refresh(self):
+        self.display_state()
+        # noinspection PyTypeChecker
+        self.root.after(self.refresh_timer, self.refresh)
+
 
     def current_state(self, new_state):
         self._current_state = new_state
