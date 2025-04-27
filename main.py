@@ -3,9 +3,11 @@ from tkinter import ttk
 import random
 import tkinter.messagebox
 import BackEND
+from PIL import Image, ImageTk
+
 
 class GUI:
-    Goal = []
+    Goal = [1,2,3,4,5,6,7,8,0]
 
     def __init__(self):
 #This is like the constructor of an object, with "self" is the same as this
@@ -16,6 +18,13 @@ class GUI:
         self.root.geometry("800x500")
         self.root.resizable(False, False)
         self.root.config(bg="#EAEAEA")
+# Load and resize images
+        self.images = {}
+        for i in range(9):  # 0-8
+            image = Image.open(f"Photos/{i}.jpg")
+            # Resize image to fit buttons (adjust size as needed)
+            image = image.resize((60, 60), Image.Resampling.LANCZOS)
+            self.images[i] = ImageTk.PhotoImage(image)
 
 
         self._current_state = list(range(0, 9))
@@ -48,20 +57,13 @@ class GUI:
         text="Shuffle"
     )
         self.shuffle_button.pack(pady=20)
-        
-        self.input_Puzzle()
-        self.refresh_timer = 100
+
         self.Solve = ttk.Button(
                 self.root,command = lambda : self.solve(),
             text="Solve"
             )
         self.Solve.pack(pady=20)
     def solve(self):
-        # Update Goal state from input buttons before solving
-        GUI.Goal = []
-        for btn in self.input_buttons:
-            GUI.Goal.append(int(btn['text']))
-
         self.solution = self.A_Star(self._current_state)
         if self.solution:
             self.PrintSolution(Solution=self.solution)
@@ -83,53 +85,14 @@ class GUI:
                 else:
                     button = tk.Button(
                         self.puzzle_frame,
-                        width=6,
-                        height=3,
-                        font=("Arial", 16, "bold"),
+                        width=60,
+                        height=60,
+                        image=self.images[Board[counter]],
                         command=lambda row=i, col=j: "",
-                        text=Board[counter],
                     )
                     button.grid(row=i, column=j, padx=2, pady=2)
                     self.buttons.append(button)
                     counter += 1
-    input_buttons = []
-    def input_Puzzle(self):
-        counter = 0
-        def create_button_click(this_button):
-            def button_click():
-                current = int(this_button['text'])
-                # Cycle through 0-8
-                next_value = (current + 1) % 9
-                this_button.config(text=str(next_value))
-                # Update goal list every time a button is clicked
-                GUI.Goal = []  # Reset the goal list
-                for butn in self.input_buttons:
-                    GUI.Goal.append(int(butn['text']))
-
-            return button_click
-
-        for i in range(3):
-            for j in range(3):
-                button = tk.Button(
-                    self.input_frame,
-                    width=6,
-                    height=3,
-                    font=("Arial", 16, "bold"),
-                    text=str(counter),
-                )
-                # Create a specific click handler for this button
-                button['command'] = create_button_click(button)
-                button.grid(row=i, column=j, padx=2, pady=2)
-                self.input_buttons.append(button)
-                counter += 1
-    
-        # Initialize Goal list with initial values
-        GUI.Goal = []
-        for btn in self.input_buttons:
-            GUI.Goal.append(int(btn['text']))
-    def goalset(self):
-        for button in self.input_buttons:
-            GUI.Goal.append(int(button['text']))
 
 
     @staticmethod
@@ -175,7 +138,7 @@ class GUI:
             Path.append(CurrentState)
             CurrentState = CurrentState.Parent
         Path.reverse()
-    
+
         def update_step(index):
             if index < len(Path):
                 step = Path[index]
@@ -184,7 +147,7 @@ class GUI:
             else:
                 # Show "Solved" message after the last update
                 tk.messagebox.showinfo("Success", "Puzzle Solved!")
-    
+
         update_step(0)
 
     def shuffle_puzzle(self):
