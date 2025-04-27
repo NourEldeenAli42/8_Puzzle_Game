@@ -60,7 +60,7 @@ class GUI:
 
         self.Solve = ttk.Button(
                 self.root,command = lambda : self.solve(),
-            text="Solve"
+            text="Solved"
             )
         self.Solve.pack(pady=20)
     def solve(self):
