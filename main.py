@@ -72,7 +72,7 @@ class GUI:
             )
         self.Solve.pack(pady=20)
 
-#!------------------------------------------------------Nour "Eldeen" Ali----------------------------------------------------------!#
+#!------------------------------------------------------Nour "Elden" Ali----------------------------------------------------------!#
 
 #?  we define the solve method, which uses A* algorithm to solve the puzzle
     def solve(self):
@@ -149,6 +149,7 @@ class GUI:
 
 #?  we define goalset method, which updates the goal list with the values from the input buttons
     def goalset(self):
+        GUI.Goal = []
         for button in self.input_buttons:
             GUI.Goal.append(int(button['text']))
 
