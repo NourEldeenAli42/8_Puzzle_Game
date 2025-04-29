@@ -30,8 +30,6 @@ class GUI:
 #!      The pack method is used to place the widget in the parent widget
         self.title_label.pack()
 
-#?      This is a list of buttons that will be used to display the current state of the puzzle, we initialize it with empty list
-
 
 #!      The variable _current_state is a list of 9 numbers from 0 to 8, which represents the current state of the puzzle
 #!      In this piece of code, we define the _current_state as a list of 9 numbers from 0 to 8, and then shuffle it
@@ -67,7 +65,8 @@ class GUI:
 
 #?      This piece of code is used to create a button for solving the puzzle, and then pack it into the root
         self.Solve = ttk.Button(
-                self.root,command = lambda : self.solve(),
+                self.root,
+            command = lambda : self.solve(),
             text="Solve"
             )
         self.Solve.pack(pady=20)
@@ -77,9 +76,7 @@ class GUI:
 #?  we define the solve method, which uses A* algorithm to solve the puzzle
     def solve(self):
         # Update Goal state from input buttons before solving
-        GUI.Goal = []
-        for btn in self.input_buttons:
-            GUI.Goal.append(int(btn['text']))
+        self.goalset()
 
         self.solution = self.A_Star(self._current_state)
         if self.solution:
@@ -109,6 +106,7 @@ class GUI:
                         font=("Arial", 16, "bold"),
                         command=lambda row=i, col=j: "",
                         text=Board[counter],
+                        bg="cyan"
                     )
                     button.grid(row=i, column=j, padx=2, pady=2)
                     self.buttons.append(button)
