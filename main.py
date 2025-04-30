@@ -21,7 +21,7 @@ class GUI:
 # Load and resize images
         self.images = {}
         for i in range(9):  # 0-8
-            image = Image.open(f"Photos/{i}.jpg")
+            image = Image.open(f"Photos/image_part_00{i}.jpg")
             # Resize image to fit buttons (adjust size as needed)
             image = image.resize((60, 60), Image.Resampling.LANCZOS)
             self.images[i] = ImageTk.PhotoImage(image)
@@ -79,10 +79,6 @@ class GUI:
         counter = 0
         for i in range(3):
             for j in range(3):
-                if Board[counter] == 0:
-                    counter += 1
-                    continue
-                else:
                     button = tk.Button(
                         self.puzzle_frame,
                         width=60,
