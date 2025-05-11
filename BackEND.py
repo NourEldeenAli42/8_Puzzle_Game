@@ -88,7 +88,7 @@ def heuristic(Board, Goal):
     for i in range(9):
         if Board[i] != 0:
             x1, y1 = divmod(i, 3)
-            if (Board[i] not in Goal):
+            if Board[i] not in Goal:
                 tkinter.messagebox.showinfo("Error", f"{Board[i]} is not in Goal")
             goal_index = Goal.index(Board[i])
             x2, y2 = divmod(goal_index, 3)

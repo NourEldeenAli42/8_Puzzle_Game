@@ -5,7 +5,7 @@ import tkinter.messagebox
 import BackEND
 
 class GUI:
-    #!We initialize the goal and the input_buttons as a list, so that we can do operations below like refreshing the goal according to input buttons
+    #!We initialize the goal and the input_buttons as a list, so that we can do the operations below like refreshing the goal according to input buttons
     Goal = []
     buttons = []
     input_buttons = []
@@ -32,7 +32,7 @@ class GUI:
 
 
 #!      The variable _current_state is a list of 9 numbers from 0 to 8, which represents the current state of the puzzle
-#!      In this piece of code, we define the _current_state as a list of 9 numbers from 0 to 8, and then shuffle it
+#!      In this piece of code, we define the _current_state, and then shuffle it
         self._current_state = list(range(0, 9))
         random.shuffle(self._current_state)
 
@@ -71,7 +71,7 @@ class GUI:
             )
         self.Solve.pack(pady=20)
 
-#!------------------------------------------------------Nour "Elden" Ali----------------------------------------------------------!#
+#!------------------------------------------------------Nour "Eldeen" Ali----------------------------------------------------------!#
 
 #?  we define the solve method, which uses A* algorithm to solve the puzzle
     def solve(self):
@@ -108,7 +108,7 @@ class GUI:
                         text=Board[counter],
                         bg="cyan"
                     )
-                    button.grid(row=i, column=j, padx=2, pady=2)
+                    button.grid(row=i, column=j, padx=0, pady=0)
                     self.buttons.append(button)
                     counter += 1
 
