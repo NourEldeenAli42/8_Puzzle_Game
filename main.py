@@ -86,7 +86,7 @@ class GUI:
                         image=self.images[Board[counter]],
                         command=lambda row=i, col=j: "",
                     )
-                    button.grid(row=i, column=j, padx=2, pady=2)
+                    button.grid(row=i, column=j, padx=0, pady=0)
                     self.buttons.append(button)
                     counter += 1
 
